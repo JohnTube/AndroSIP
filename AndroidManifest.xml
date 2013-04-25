@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.test_app"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Sherlock.Light" >
+        <activity
+            android:name="com.example.ui.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.ui.CallFrag"
+            android:label="@string/title_activity_call_frag" >
+        </activity>
+        <activity
+            android:name="com.example.ui.ContactsFrag"
+            android:label="@string/title_activity_contacts_frag" >
+        </activity>
+        <activity
+            android:name="com.example.ui.LogFrag"
+            android:label="@string/title_activity_log_frag" >
+        </activity>
+        <activity
+            android:name="com.example.ui.SettingsFrag"
+            android:label="@string/title_activity_settings_frag" >
+        </activity>
+        <activity
+            android:name="com.example.ui.SipAccount"
+            android:label="@string/title_activity_sip_account" >
+        </activity>
+    </application>
+
+</manifest>
