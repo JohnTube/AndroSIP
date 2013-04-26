@@ -1,5 +1,5 @@
 package com.example.ui;
-import com.example.test_app.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
-
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.example.test_app.R;
 public class MainActivity extends SherlockFragmentActivity {
 	private ViewPager mViewPager;
     private TabsAdapter mTabsAdapter;

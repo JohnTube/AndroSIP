@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ShowContact" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/dark" >
+    
+    <Button
+        android:id="@+id/modif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Modifier Contact "
+        android:background="@drawable/bb"
+        android:layout_gravity="center"
+        android:padding="12dip" 
+        />
+    
+    <Button
+        android:id="@+id/supp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Supprimer Contact "
+        android:background="@drawable/bb"
+        android:layout_gravity="center"
+        android:padding="12dip" 
+        />
+    
+    
+
+</LinearLayout>
+
+</RelativeLayout>

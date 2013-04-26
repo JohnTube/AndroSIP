@@ -1,23 +1,25 @@
 package com.example.ui;
-import com.example.test_app.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.app.Activity;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class AddconActivity extends Activity {
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.example.test_app.R;
+
+public class AddconActivity extends SherlockFragmentActivity {
 	private Uri imageUri;
 	private String selectedImagePath;
 	private ImageView imageView;
@@ -96,7 +98,7 @@ addcon.setOnClickListener(new View.OnClickListener()
                  		  	 Bundle objetbunble = new Bundle();
                  		    	objetbunble.putString("namecon",namecontact.getText().toString() );
                     			objetbunble.putString("sipcon", sipcontact.getText().toString());
-                           Intent intent= new Intent(aView.getContext(),ContactsFrag.class);
+                           Intent intent= new Intent(aView.getContext(),MainActivity.class);
                            intent.putExtras(objetbunble);
                            startActivityForResult(intent, 6);    
                     }

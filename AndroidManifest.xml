@@ -22,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.ui.AddconActivity" >
+        </activity>
+          <activity android:name="com.example.ui.ModifconActivity" >
+        </activity>
         <activity
             android:name="com.example.ui.CallFrag"
             android:label="@string/title_activity_call_frag" >
@@ -41,6 +45,14 @@
         <activity
             android:name="com.example.ui.SipAccount"
             android:label="@string/title_activity_sip_account" >
+        </activity>
+        <activity
+            android:name="com.example.ui.ShowContact"
+            android:label="@string/title_activity_show_contact"
+            android:parentActivityName="com.actionbarsherlock.app.SherlockFragmentActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.actionbarsherlock.app.SherlockFragmentActivity" />
         </activity>
     </application>
 

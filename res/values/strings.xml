@@ -9,5 +9,6 @@
     <string name="title_activity_log_frag">LogFrag</string>
     <string name="title_activity_settings_frag">SettingsFrag</string>
     <string name="title_activity_sip_account">SipAccount</string>
+    <string name="title_activity_show_contact">ShowContact</string>
 
 </resources>

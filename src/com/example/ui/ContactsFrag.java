@@ -1,10 +1,6 @@
 package com.example.ui;
-import com.example.test_app.*;
-
 import android.app.Activity;
 import android.app.Dialog;
-
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,15 +10,15 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FilterQueryProvider;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.example.test_app.R;
 
 public class ContactsFrag extends SherlockFragment {
 	private ContactDB dbHelper;
@@ -74,32 +70,9 @@ public class ContactsFrag extends SherlockFragment {
 		   // Get the cursor, positioned to the corresponding row in the result set
 		   Cursor cursor = (Cursor) listView.getItemAtPosition(position);
 		  final String namecontact =cursor.getString(cursor.getColumnIndexOrThrow("name"));
-		final Dialog dialog = new Dialog(view.getContext());
-			dialog.setContentView(R.layout.dialog);
-			dialog.setTitle("Settings");
-			dialog.getWindow().setLayout(400, 400);
-			Button modif = (Button) dialog.findViewById(R.id.modif);
-			Button supp = (Button) dialog.findViewById(R.id.supp);
-		modif.setOnClickListener(new OnClickListener()
-			{
-				@Override
-				public void onClick(View aView) {
-					Intent intent = new Intent(getActivity(),ModifconActivity.class);
-					getActivity().startActivityForResult(intent, 7);
-					
-				}	
-			}
-			);
-			supp.setOnClickListener(new OnClickListener()
-			{
-				@Override
-				public void onClick(View aView) {
-					dbHelper.removeContactwithName(namecontact);
-					Intent intent = new Intent(getActivity(),ContactsFrag.class);
-					getActivity().startActivityForResult(intent,8);
-				
-			}});
-			dialog.show();
+		  Intent intent = new Intent(getActivity(),ShowContact.class);
+		  intent.putExtra("NOM",namecontact);
+			getActivity().startActivityForResult(intent,8);
 		   }
 		  });
 		 
