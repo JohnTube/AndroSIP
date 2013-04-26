@@ -1,13 +1,11 @@
 package com.example.ui;
-
+import com.example.test_app.*;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.example.test_app.R;
-
 public class LogFrag extends SherlockFragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){

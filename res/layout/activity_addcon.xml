@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent" 
+    android:orientation="vertical" >
+    
+<TextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:text="NAME : " android:textStyle="bold" 
+    android:textColor="#FFFFFF" 
+    android:gravity="center" 
+    android:textSize="18sp"/>
+
+<EditText android:id="@+id/namecontact"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:hint="NAME" 
+    android:inputType="text"/>
+
+<TextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:text="SIP : " 
+    android:textStyle="bold" android:textColor="#FFFFFF" 
+    android:gravity="center" android:textSize="18sp"/>
+
+<EditText android:id="@+id/sipcontact" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:hint="SIP" 
+    android:inputType="text"/>
+
+   <LinearLayout
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">"
+<Button android:id="@+id/imagebrowse" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:layout_alignParentTop="true" 
+    android:layout_alignParentRight="true" 
+    android:layout_gravity="center" 
+    android:background="@drawable/bb" 
+    android:text="Choose Image"
+    android:padding="16dip" 
+    android:textColor="#FFFFFF"/>
+<Button android:id="@+id/imagecapture" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:layout_alignParentTop="true" 
+    android:layout_alignParentRight="true" 
+    android:layout_gravity="center" 
+    android:background="@drawable/bb" 
+    android:text="Take Photo"
+    android:padding="16dip" 
+    android:textColor="#FFFFFF"/>
+</LinearLayout>
+
+<Button android:id="@+id/add" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:layout_alignParentTop="true" 
+    android:layout_alignParentRight="true" 
+    android:layout_gravity="center" 
+    android:background="@drawable/bb" 
+    android:text="ADD"
+    android:padding="16dip" 
+    android:textColor="#FFFFFF"/>
+
+
+    
+</LinearLayout>

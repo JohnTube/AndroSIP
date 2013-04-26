@@ -1,8 +1,6 @@
 package com.example.ui;
 
-import com.example.test_app.R;
-import com.example.test_app.R.layout;
-import com.example.test_app.R.menu;
+import com.example.test_app.*;
 
 import android.os.Bundle;
 import android.app.Activity;
