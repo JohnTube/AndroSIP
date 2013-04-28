@@ -209,7 +209,8 @@ public class LoginActivity extends SherlockFragmentActivity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
-
+			mUsername=(msipURI.split("@"))[0];
+			mDomain=(msipURI.split("@"))[1];
 		
 			rA = new RegisterAgent(mUsername,mPassword,mDomain);
 
