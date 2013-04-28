@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,17 +19,14 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.example.test_app.R;
+import com.example.test_app.RegisterAgent;
 public class MainActivity extends SherlockFragmentActivity {
 	private ViewPager mViewPager;
     private TabsAdapter mTabsAdapter;
     private boolean mDualPane;
-    
-    //private final static int TAB_ID_DIALER = 0;
-    private final static int TAB_ID_CALL = 1;
-    private final static int TAB_ID_CONTACTS = 2;
-    private final static int TAB_ID_LOG = 3;
-    private final static int TAB_ID_SETTINGS = 4;
-    
+    private boolean hasAccount = false;
+    private RegisterAgent rA;
+
     // This will save persistent data
     // private PreferencesProviderWrapper prefProviderWrapper;
     /**
@@ -42,26 +41,23 @@ public class MainActivity extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-	
+		
 		final ActionBar actionbar = getSupportActionBar();
-		
-		
-		
+
 		// removing the title bar that shows icon and app. name from actionBar
 		actionbar.setDisplayShowTitleEnabled(false);
 		actionbar.setDisplayShowHomeEnabled(false);
 		//
-		
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	
 		Tab callTab = actionbar.newTab()
-                .setText("Call");
+                .setIcon(R.drawable.call);
        Tab contactsTab = actionbar.newTab()
-                .setText("Contacts");
+    		   .setIcon(R.drawable.contacts);
        Tab logTab = actionbar.newTab()
-               .setText("Log");
+    		   .setIcon(R.drawable.log);
        Tab settingsTab = actionbar.newTab()
-               .setText("Settings");
+    		   .setIcon(R.drawable.settings);
        mViewPager = (ViewPager) findViewById(R.id.pager);
        mTabsAdapter = new TabsAdapter(this, getSupportActionBar(), mViewPager);
        mTabsAdapter.addTab(callTab, CallFrag.class, 1);
@@ -70,6 +66,34 @@ public class MainActivity extends SherlockFragmentActivity {
        mTabsAdapter.addTab(settingsTab, SettingsFrag.class, 4);
        
 	}
+	@Override
+	protected void onStart(){
+		super.onStart();
+		SharedPreferences pref = getSharedPreferences(LoginActivity.ACCOUNT_PREFS_NAME,MODE_PRIVATE);
+		hasAccount=pref.getBoolean(LoginActivity.PREF_REGISTERED_ONCE,false);
+		if (hasAccount == false){
+		
+			Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
+		}
+		else 
+		{	
+			rA= new RegisterAgent(pref.getString(LoginActivity.PREF_USERNAME, null),
+								pref.getString(LoginActivity.PREF_PASSWORD, null),
+								pref.getString(LoginActivity.PREF_DOMAIN, null));
+			rA.register();
+		}
+	}
+	@Override
+	protected void onStop()
+	{super.onStop();
+	Log.d("ch3ar","main stopped");}
+	
+	@Override
+	protected void onDestroy()
+	{super.onDestroy();
+	Log.d("ch3ar","main destroyed deregistred");
+	rA.deregister();}
 	
 	   private class TabsAdapter extends FragmentPagerAdapter implements
        ViewPager.OnPageChangeListener, ActionBar.TabListener {

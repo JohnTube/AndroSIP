@@ -49,6 +49,7 @@ public class RegisterAgent implements TransactionClientListener {
      
         sipProvider = new SipProvider(
                 IpAddress.getLocalHostAddress().toString(),0);
+    Log.d("ch3ar","IPv4="+IpAddress.getLocalHostAddress().toString());
 	}
 	
 	public void register(){
@@ -72,9 +73,9 @@ public class RegisterAgent implements TransactionClientListener {
                       toAddress, 
                       fromAddress, 
                       contactAddress);
-              
+             
               rMsg.setExpiresHeader(new ExpiresHeader(SipStack.default_expires));
-             // Log.d("MYSIP","rMsg="+rMsg.toString());
+              
               TransactionClient tC;
               tC = new TransactionClient(sipProvider,rMsg,this);
               tC.request();
@@ -84,8 +85,8 @@ public class RegisterAgent implements TransactionClientListener {
 	public void onTransFailureResponse(TransactionClient transClt, Message resp) {
 		// TODO complete other 4xx responses
 		int code = resp.getStatusLine().getCode();
-		Log.d("MYSIP", "AltResp code="+code+" reason="+resp.getStatusLine().getReason());
-		Log.d("MYSIP","resp="+resp.toString());
+		Log.d("ch3ar", "AltResp code="+code+" reason="+resp.getStatusLine().getReason());
+		
 		if (code==401){  
 			
 			if (resp.hasWwwAuthenticateHeader())
@@ -125,7 +126,7 @@ public class RegisterAgent implements TransactionClientListener {
            
           }
 if (code==407){  
-			Log.d("MYSIP","proxy autho");
+			Log.d("ch3ar","proxy autho");
 				          }
 if (code==403){
 			Log.d("","");
@@ -169,7 +170,7 @@ if (code==403){
                 contactAddress);
         
         rMsg.setExpiresHeader(new ExpiresHeader(0));
-      //  Log.d("MYSIP","rMsg="+rMsg.toString());
+      //  Log.d("ch3ar","rMsg="+rMsg.toString());
         TransactionClient tC = new TransactionClient(sipProvider,rMsg,this);
         tC.request();
 		}
@@ -180,7 +181,7 @@ if (code==403){
 	@Override
 	public void onTransProvisionalResponse(TransactionClient arg0, Message arg1) {
 		
-		Log.d("MYSIP", "Tryin");
+		Log.d("ch3ar", "Tryin");
 			status = REGISTERING;
 	}
 
@@ -192,7 +193,7 @@ if (code==403){
 	@Override
 	public void onTransTimeout(TransactionClient arg0) {
 		// TODO Auto-generated method stub
-		Log.d("MYSIP", "RegistrationTimeOut");
+		Log.d("ch3ar", "RegistrationTimeOut");
 		status = UNREGISTERED;
 		reason = "TimeOut";
 		

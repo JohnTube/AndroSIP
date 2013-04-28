@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".CallFrag" >
+    tools:context=".CallFrag" 
+    android:focusableInTouchMode="true">
        <TextView
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -53,4 +54,5 @@ android:background="@android:color/transparent"
 android:drawableTop="@drawable/dial"
 android:padding="16dip" 
 />
+
    </LinearLayout>
