@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,14 +17,15 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.example.test_app.R;
-import com.example.test_app.RegisterAgent;
+import com.example.test_app.Receiver;
 public class MainActivity extends SherlockFragmentActivity {
 	private ViewPager mViewPager;
     private TabsAdapter mTabsAdapter;
     private boolean mDualPane;
     private boolean hasAccount = false;
-    private RegisterAgent rA;
-
+    // private RegisterAgent rA;
+    // private SipCore sipEngine;
+    //private Receiver bR;
     // This will save persistent data
     // private PreferencesProviderWrapper prefProviderWrapper;
     /**
@@ -63,37 +62,40 @@ public class MainActivity extends SherlockFragmentActivity {
        mTabsAdapter.addTab(callTab, CallFrag.class, 1);
        mTabsAdapter.addTab(contactsTab, ContactsFrag.class, 2);
        mTabsAdapter.addTab(logTab, LogFrag.class, 3);
-       mTabsAdapter.addTab(settingsTab, SettingsFrag.class, 4);
-       
+       mTabsAdapter.addTab(settingsTab, SettingsFrag.class, 4); 
 	}
+	
 	@Override
 	protected void onStart(){
 		super.onStart();
-		SharedPreferences pref = getSharedPreferences(LoginActivity.ACCOUNT_PREFS_NAME,MODE_PRIVATE);
+	//	Receiver.engine(this).register();
+	//	Receiver.sipCore.listen();
+	/*	SharedPreferences pref = getSharedPreferences(LoginActivity.ACCOUNT_PREFS_NAME,MODE_PRIVATE);
 		hasAccount=pref.getBoolean(LoginActivity.PREF_REGISTERED_ONCE,false);
-		if (hasAccount == false){
-		
+		if (!hasAccount){
+			
 			Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
 		}
 		else 
-		{	
-			rA= new RegisterAgent(pref.getString(LoginActivity.PREF_USERNAME, null),
-								pref.getString(LoginActivity.PREF_PASSWORD, null),
-								pref.getString(LoginActivity.PREF_DOMAIN, null));
-			rA.register();
+		{	Receiver.sipCore.init(this);
+			Receiver.sipCore.register();
 		}
+		*/
+		
+		// sipEngine = new SipCore();
+		// sipEngine.register();
 	}
 	@Override
 	protected void onStop()
 	{super.onStop();
-	Log.d("ch3ar","main stopped");}
+	}
 	
 	@Override
 	protected void onDestroy()
 	{super.onDestroy();
-	Log.d("ch3ar","main destroyed deregistred");
-	rA.deregister();}
+	
+	}
 	
 	   private class TabsAdapter extends FragmentPagerAdapter implements
        ViewPager.OnPageChangeListener, ActionBar.TabListener {

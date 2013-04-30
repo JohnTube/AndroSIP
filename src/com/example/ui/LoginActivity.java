@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.example.test_app.R;
+import com.example.test_app.Receiver;
 import com.example.test_app.RegisterAgent;
 
 /**
@@ -100,7 +102,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 	@Override
 	public void onStart(){
 		super.onStart();
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("Add account");
 	}
 
 	/**
@@ -210,22 +212,22 @@ public class LoginActivity extends SherlockFragmentActivity {
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
 
-		
-			rA = new RegisterAgent(mUsername,mPassword,mDomain);
-
-			rA.register();
-			try {
-				Thread.sleep(3600);
-			}
-			catch (Exception e){}
-			if (rA.status==3)
-			{getSharedPreferences(ACCOUNT_PREFS_NAME,MODE_PRIVATE)
-		        .edit()
-		        .putString(PREF_USERNAME, mUsername)
-		        .putBoolean(PREF_REGISTERED_ONCE, true)
-		        .putString(PREF_DOMAIN, mDomain)
-		        .putString(PREF_PASSWORD, mPassword)
-		        .commit();
+			mUsername=(msipURI.split("@"))[0];
+			mDomain=(msipURI.split("@"))[1];
+			//rA = new RegisterAgent(mUsername,mPassword,mDomain);
+			//rA.register();
+			
+			Receiver.sipCore.init(mUsername, mPassword, mDomain);
+			Receiver.engine(getParent()).register();
+			if (Receiver.sipCore.isRegistered())
+			{	Log.d("LoginActivity","saving prefs");
+		        getSharedPreferences(ACCOUNT_PREFS_NAME,MODE_PRIVATE)
+	        .edit()
+	        .putString(PREF_USERNAME, mUsername)
+	        .putString(PREF_DOMAIN, mDomain)
+	        .putBoolean(PREF_REGISTERED_ONCE, true)
+	        .putString(PREF_PASSWORD, mPassword)
+	        .commit();
 			return true;}
 			else return false;
 		}
@@ -234,11 +236,11 @@ public class LoginActivity extends SherlockFragmentActivity {
 		protected void onPostExecute(final Boolean success) {
 			mAuthTask = null;
 			showProgress(false);
-
+			
 			if (success) {
 				finish();
 			} else {
-				mLoginStatusMessageView.setError("Account not saved "+rA.reason);
+				mLoginStatusMessageView.setError("Account not saved ");
 			}
 		}
 
