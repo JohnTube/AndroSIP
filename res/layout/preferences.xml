@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceCategory android:title="Account">
+<EditTextPreference 
+android:key="USER"
+android:dialogTitle="Titre de la boîte"
+android:positiveButtonText="Je valide !"
+android:negativeButtonText="Je valide pas !"
+android:title="user"
+android:summary="Résumé" />
+
+
+</PreferenceCategory>
+<PreferenceCategory android:title="Codecs">
+</PreferenceCategory>
+<PreferenceCategory android:title="Themes">
+</PreferenceCategory>
+</PreferenceScreen>

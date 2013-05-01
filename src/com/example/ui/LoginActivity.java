@@ -211,26 +211,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
-<<<<<<< HEAD
-			mUsername=(msipURI.split("@"))[0];
-			mDomain=(msipURI.split("@"))[1];
-		
-			rA = new RegisterAgent(mUsername,mPassword,mDomain);
 
-			rA.register();
-			try {
-				Thread.sleep(3600);
-			}
-			catch (Exception e){}
-			if (rA.status==3)
-			{getSharedPreferences(ACCOUNT_PREFS_NAME,MODE_PRIVATE)
-		        .edit()
-		        .putString(PREF_USERNAME, mUsername)
-		        .putBoolean(PREF_REGISTERED_ONCE, true)
-		        .putString(PREF_DOMAIN, mDomain)
-		        .putString(PREF_PASSWORD, mPassword)
-		        .commit();
-=======
 
 			mUsername=(msipURI.split("@"))[0];
 			mDomain=(msipURI.split("@"))[1];
@@ -248,7 +229,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 	        .putBoolean(PREF_REGISTERED_ONCE, true)
 	        .putString(PREF_PASSWORD, mPassword)
 	        .commit();
->>>>>>> branch 'master' of https://github.com/JohnTube/PCD_test.git
+
 			return true;}
 			else return false;
 		}

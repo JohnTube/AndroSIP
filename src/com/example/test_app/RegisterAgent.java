@@ -80,20 +80,7 @@ public class RegisterAgent implements TransactionClientListener {
 	}
 	
 	public void register(){
-<<<<<<< HEAD
-		
-          	uri="sip:"+username+"@"+realm;
-          	
-              NameAddress toAddress = new NameAddress(
-                     uri);
-              
-              NameAddress fromAddress = new NameAddress(
-                      uri);
-              NameAddress contactAddress = new NameAddress(
-              		"sip:"+username+"@"+sipProvider.getViaAddress()); //+":"+sipProvider.getPort()
-              
-              SipURL sipURL = new SipURL("sip:"+realm);
-=======
+
 			if (sipProvider==null)
 				Log.d("RegisterAgent","sipProvider=null");
 			else if (sipURL==null)
@@ -104,7 +91,6 @@ public class RegisterAgent implements TransactionClientListener {
 				Log.d("RegisterAgent","fromAddress=null");
 			else if (contactAddress==null)
 			Log.d("RegisterAgent","contactAddress=null");
->>>>>>> branch 'master' of https://github.com/JohnTube/PCD_test.git
                            
               Message rMsg = MessageFactory.createRegisterRequest(
                       sipProvider, 

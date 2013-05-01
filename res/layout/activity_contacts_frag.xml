@@ -4,14 +4,6 @@
     android:layout_weight="1"
     android:layout_height="fill_parent"
      android:orientation="vertical" 
-<<<<<<< HEAD
-       android:paddingBottom="@dimen/activity_vertical_margin"
-         android:paddingTop="@dimen/activity_vertical_margin" 
-=======
-    android:paddingLeft="0dip"
- 
-    android:paddingRight="0dip"
->>>>>>> branch 'master' of https://github.com/JohnTube/PCD_test.git
     tools:context=".ContactsFrag" >
 
   
