@@ -2,7 +2,9 @@ package com.example.ui;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.view.LayoutInflater;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -20,9 +22,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.example.test_app.R;
 
 
-
-
-
 public class AddconActivity extends SherlockFragmentActivity {
 private Uri imageUri1;
 private Uri imageUri2;
@@ -38,7 +37,32 @@ final EditText namecontact = (EditText) findViewById(R.id.namecontact);
 Button addcon = (Button) findViewById(R.id.add);
 Button imagebrowse = (Button) findViewById(R.id.imagebrowse);
 Button imagecapture = (Button) findViewById(R.id.imagecapture);
+Button chsip = (Button) findViewById(R.id.chsip);
 
+chsip.setOnClickListener(new View.OnClickListener() {
+
+@Override
+public void onClick(View v) {
+	LayoutInflater factory = LayoutInflater.from(AddconActivity.this);
+    final View alertDialogView = factory.inflate(R.layout.dialog, null);
+
+    //Création de l'AlertDialog
+    AlertDialog.Builder adb = new AlertDialog.Builder(AddconActivity.this);
+
+    //On affecte la vue personnalisé que l'on a crée à notre AlertDialog
+    adb.setView(alertDialogView);
+
+    //On donne un titre à l'AlertDialog
+    adb.setTitle("Choose a SIP Provider");
+    adb.setIcon(R.drawable.expand);
+    adb.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int which) {
+        	//Lorsque l'on cliquera sur annuler on quittera l'application
+        	finish();
+      } });
+    adb.show();
+
+}});
 imagebrowse.setOnClickListener(new View.OnClickListener() {
 
 @Override

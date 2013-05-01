@@ -9,6 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CallFrag" 
     android:focusableInTouchMode="true">
+     
        <TextView
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -25,24 +26,15 @@ android:layout_height="wrap_content"
 android:inputType="text"
 android:hint="Username"
 />
-           
-         <TextView 
-             android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-           android:text="Domain"
-         android:textStyle="bold"
-android:textColor="#FFFFFF"
-android:textSize="20sp"
-android:layout_marginBottom="20sp"  
-                      />
-       
-       <EditText
-           android:id="@+id/domain"
-           android:hint="Domain"
-           android:inputType="text"
-          android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-                             />
+          
+        <Button android:id="@+id/chsip2" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    
+    android:layout_gravity="center"  
+    android:text="Choose SIP Provider"
+    android:padding="16dip" 
+    android:textColor="#FFFFFF"/>    
        
 <Button
 android:layout_width="wrap_content"

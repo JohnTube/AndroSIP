@@ -51,7 +51,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	
 		Tab callTab = actionbar.newTab()
-                .setIcon(R.drawable.call);
+                .setIcon(R.drawable.dial);
        Tab contactsTab = actionbar.newTab()
     		   .setIcon(R.drawable.contacts);
        Tab logTab = actionbar.newTab()

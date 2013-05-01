@@ -56,7 +56,6 @@ public class RegisterAgent implements TransactionClientListener {
 		
           	uri="sip:"+username+"@"+realm;
           	
-              
               NameAddress toAddress = new NameAddress(
                      uri);
               

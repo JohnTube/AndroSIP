@@ -38,6 +38,16 @@
     android:hint="SIP" 
     android:inputType="text"/>
 
+<Button android:id="@+id/chsip" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    
+    android:layout_gravity="center"  
+    android:text="Choose SIP Provider"
+    android:padding="16dip" 
+    android:textColor="#FFFFFF"/>
+
+
    <LinearLayout
         android:layout_width="wrap_content"
     android:layout_height="wrap_content"
