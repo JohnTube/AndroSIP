@@ -27,32 +27,60 @@ public class RegisterAgent implements TransactionClientListener {
 	public String reason;
 	
 
+	private NameAddress toAddress = null;
+	private NameAddress fromAddress = null;
+	private NameAddress contactAddress = null;
+	private SipURL sipURL = null;
+	private String uri = null;
+	private String password = null;
 	private String username = null;
-	private String passwd = null;
 	private String realm = null;
-	private String uri=null;
-	
 	private SipProvider sipProvider=null;
 	
+	public RegisterAgent(SipProvider sip_provider, SipURL registrar, NameAddress target_url, NameAddress from_url, String username, String realm, String passwd){
+		this.username=username;
+        this.password=passwd;
+        this.realm=realm;
+        this.toAddress = target_url;
+        this.sipProvider=sip_provider;
+        uri="sip:"+username+"@"+realm;
+        this.fromAddress = from_url;
+        this.contactAddress = new NameAddress(
+        		"sip:"+username+"@"+sipProvider.getViaAddress()); //+":"+sipProvider.getPort()
+        		
+        this.sipURL = registrar;
+	}
 	
-	public RegisterAgent(String user, String pass, String domain){
-		this.username=user;
-		this.passwd=pass;
-		this.realm=domain;
-		SipStack.init(null);
-        SipStack.debug_level =0;
-        //SipStack.log_path = "~/d/log";
-        //int expire_time = 1500;
-     SipStack.max_retransmission_timeout = SipStack.default_expires;
-     SipStack.default_transport_protocols = new String[1];
-     SipStack.default_transport_protocols[0] = "udp";
-     
-        sipProvider = new SipProvider(
-                IpAddress.getLocalHostAddress().toString(),0);
+	public RegisterAgent(String username, String password, String realm){
+				uri="sip:"+username+"@"+realm;
+				SipStack.init(null);
+		        SipStack.debug_level =0;
+		        //SipStack.log_path = "~/d/log";
+		        //int expire_time = 1500;
+		     SipStack.max_retransmission_timeout = SipStack.default_expires;
+		     SipStack.default_transport_protocols = new String[1];
+		     SipStack.default_transport_protocols[0] = "udp";
+		     
+		        sipProvider = new SipProvider(
+		                IpAddress.getLocalHostAddress().toString(),0);  	
+        this.username=username;
+        this.password=password;
+        this.realm=realm;
+        this.toAddress = new NameAddress(
+               uri);
+        
+        this.fromAddress = new NameAddress(
+                uri);
+        this.contactAddress = new NameAddress(
+        		"sip:"+username+"@"+sipProvider.getViaAddress()); //+":"+sipProvider.getPort()
+        
+        this.sipURL = new SipURL("sip:"+realm);
+
     Log.d("ch3ar","IPv4="+IpAddress.getLocalHostAddress().toString());
 	}
 	
 	public void register(){
+<<<<<<< HEAD
 		
           	uri="sip:"+username+"@"+realm;
           	
@@ -65,6 +93,18 @@ public class RegisterAgent implements TransactionClientListener {
               		"sip:"+username+"@"+sipProvider.getViaAddress()); //+":"+sipProvider.getPort()
               
               SipURL sipURL = new SipURL("sip:"+realm);
+=======
+			if (sipProvider==null)
+				Log.d("RegisterAgent","sipProvider=null");
+			else if (sipURL==null)
+				Log.d("RegisterAgent","sipURL=null");
+			else if (toAddress==null)
+				Log.d("RegisterAgent","toAddress=null");
+			else if (fromAddress==null)
+				Log.d("RegisterAgent","fromAddress=null");
+			else if (contactAddress==null)
+			Log.d("RegisterAgent","contactAddress=null");
+>>>>>>> branch 'master' of https://github.com/JohnTube/PCD_test.git
                            
               Message rMsg = MessageFactory.createRegisterRequest(
                       sipProvider, 
@@ -74,7 +114,7 @@ public class RegisterAgent implements TransactionClientListener {
                       contactAddress);
              
               rMsg.setExpiresHeader(new ExpiresHeader(SipStack.default_expires));
-              
+            Log.d("ch3ar","rMsg="+rMsg.toString());
               TransactionClient tC;
               tC = new TransactionClient(sipProvider,rMsg,this);
               tC.request();
@@ -110,7 +150,7 @@ public class RegisterAgent implements TransactionClientListener {
                     ah.addUriParam(uri);
                   
                     DigestAuthentication x=new DigestAuthentication(resp.getTransactionMethod(),
-                            ah, null, passwd);
+                            ah, null, password);
                     
                     String response = x.getResponse();
                                    
@@ -145,20 +185,7 @@ if (code==403){
 		     * that's the trick
 			 ************************************************************************/
 		if (status==REGISTERED) {
-			uri="sip:"+username+"@"+realm;
-      	
-        
-        NameAddress toAddress = new NameAddress(
-               uri);
-        
-        NameAddress fromAddress = new NameAddress(
-                uri);
-        NameAddress contactAddress = new NameAddress(
-          		"sip:"+username+"@"+sipProvider.getViaAddress());
-        
-        SipURL sipURL = new SipURL("sip:"+realm);
-                     
-       
+  
         Message rMsg;
         
         rMsg = MessageFactory.createRegisterRequest(
