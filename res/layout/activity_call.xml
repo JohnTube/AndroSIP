@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Call"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/dark"
+    android:gravity="center"
+        android:keepScreenOn="true"
+     >
+
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        
+        android:text="@string/dummy_content"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+ 
+		
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+    		android:orientation="horizontal"
+            
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             >
+
+            <Button
+                android:id="@+id/accept"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/accept" />
+   
+          <Button
+                android:id="@+id/reject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/reject" />
+        </LinearLayout>
+   <!-- style="?buttonBarStyle"
+    	style="?buttonBarButtonStyle"
+            -->
+
+</LinearLayout>

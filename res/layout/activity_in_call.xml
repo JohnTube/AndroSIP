@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    
+       android:background="@drawable/dark"
+    tools:context=".InCall" >
+
+    <TextView
+        android:id="@+id/callee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dummy_content"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" 
+        android:layout_gravity="center"/>
+
+	<TextView
+	    android:id="@+id/mTimeLabel"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content" 
+	    android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="italic" 
+	    android:textIsSelectable="true"/>
+	    
+	        <Button
+	            android:id="@+id/endCallBtn"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:drawableTop="@drawable/end_call"
+	            
+	             
+	            android:layout_gravity="center">
+        
+    </Button>
+    
+</LinearLayout>
