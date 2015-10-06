@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -18,12 +19,14 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.example.test_app.R;
 import com.example.test_app.Receiver;
+import com.example.test_app.SipService;
+import com.example.ui.contacts.ContactsFrag;
 public class MainActivity extends SherlockFragmentActivity {
 	private ViewPager mViewPager;
     private TabsAdapter mTabsAdapter;
     private boolean mDualPane;
-    private boolean hasAccount = false;
-    // private RegisterAgent rA;
+   // private boolean hasAccount = false;
+   
     // private SipCore sipEngine;
     //private Receiver bR;
     // This will save persistent data
@@ -40,7 +43,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+		if (!Receiver.sipStarted) startService(new Intent(this,SipService.class));	
 		final ActionBar actionbar = getSupportActionBar();
 
 		// removing the title bar that shows icon and app. name from actionBar
@@ -68,24 +71,10 @@ public class MainActivity extends SherlockFragmentActivity {
 	@Override
 	protected void onStart(){
 		super.onStart();
-	//	Receiver.engine(this).register();
-	//	Receiver.sipCore.listen();
-	/*	SharedPreferences pref = getSharedPreferences(LoginActivity.ACCOUNT_PREFS_NAME,MODE_PRIVATE);
-		hasAccount=pref.getBoolean(LoginActivity.PREF_REGISTERED_ONCE,false);
-		if (!hasAccount){
-			
-			Intent intent = new Intent(this,LoginActivity.class);
-            startActivity(intent);
-		}
-		else 
-		{	Receiver.sipCore.init(this);
-			Receiver.sipCore.register();
-		}
-		*/
-		
-		// sipEngine = new SipCore();
-		// sipEngine.register();
+		Log.d("MainActivity","onStart()");
+								
 	}
+	
 	@Override
 	protected void onStop()
 	{super.onStop();
@@ -95,6 +84,21 @@ public class MainActivity extends SherlockFragmentActivity {
 	protected void onDestroy()
 	{super.onDestroy();
 	
+	}
+	
+	@Override
+	protected void onPause()
+	{super.onPause();	
+	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		Log.d("MainActivity","onResume()");
+		/*Receiver.engine(this);
+		Receiver.sipCore.init(this);
+		Receiver.register();
+		Receiver.sipCore.listen();*/
 	}
 	
 	   private class TabsAdapter extends FragmentPagerAdapter implements

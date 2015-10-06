@@ -4,7 +4,9 @@
     android:layout_weight="1"
     android:layout_height="fill_parent"
      android:orientation="vertical" 
-    tools:context=".ContactsFrag" >
+    tools:context=".ContactsFrag" 
+    android:id="@+id/contacts_frag"
+    >
 
   
    <!-- android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -14,10 +16,8 @@
     android:id="@+id/addcontact" 
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
-    android:padding="4dip" 
-    android:layout_alignParentTop="true" 
-    android:layout_alignParentRight="true" 
-    android:text="Add Contact" 
+    android:padding="4dip"
+    android:text="Ajouter Contact" 
     android:background="@android:color/transparent" 
     android:drawableLeft="@drawable/addcon" 
     android:textColor="#FFFFFF"
@@ -30,9 +30,7 @@
     android:id="@+id/search" 
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
-    android:padding="4dip" 
-    android:layout_alignParentTop="true" 
-    android:layout_alignParentRight="true"  
+    android:padding="4dip"  
     android:background="@android:color/transparent" 
     android:drawableLeft="@drawable/search" 
     android:textColor="#FFFFFF"/>
@@ -40,7 +38,7 @@
     android:id="@+id/myFilter" 
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
-    android:ems="10" android:hint="Search for Contact"/>
+    android:ems="10" android:hint="Chercher Contact"/>
 </LinearLayout>
 
 <ListView

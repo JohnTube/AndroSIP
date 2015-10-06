@@ -8,25 +8,27 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CallFrag" 
+    android:id="@+id/call_frag"
     android:focusableInTouchMode="true">
      
        <TextView
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="Username"
+    android:text="Adresse SIP"
     android:textStyle="bold"
 android:textColor="#FFFFFF"
 android:textSize="20sp"
 android:layout_marginBottom="20sp"  
     />
        <EditText
- android:id="@+id/username"
+ android:id="@+id/callee"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
+android:textColor="#FFFFFF"
 android:inputType="text"
-android:hint="Username"
+android:hint="user@domain"
 />
-          
+      <!--     
         <Button android:id="@+id/chsip2" 
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
@@ -35,16 +37,16 @@ android:hint="Username"
     android:text="Choose SIP Provider"
     android:padding="16dip" 
     android:textColor="#FFFFFF"/>    
-       
+        -->
 <Button
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="Call"
+
 android:id="@+id/btnDial"
 android:layout_gravity="center"
-android:background="@android:color/transparent"
-android:drawableTop="@drawable/dial"
-android:padding="16dip" 
+android:drawableTop="@drawable/call" 
+android:text="Appeler" 
+android:textColor="#FFFFFF" 
+       android:layout_width="100sp"
+        android:layout_height="50sp"
 />
 
    </LinearLayout>

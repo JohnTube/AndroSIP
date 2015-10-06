@@ -7,6 +7,7 @@ import org.zoolu.sip.address.SipURL;
 import org.zoolu.sip.authentication.DigestAuthentication;
 import org.zoolu.sip.header.AuthorizationHeader;
 import org.zoolu.sip.header.ExpiresHeader;
+import org.zoolu.sip.header.MultipleHeader;
 import org.zoolu.sip.header.ViaHeader;
 import org.zoolu.sip.message.Message;
 import org.zoolu.sip.message.MessageFactory;
@@ -15,15 +16,16 @@ import org.zoolu.sip.provider.SipStack;
 import org.zoolu.sip.transaction.TransactionClient;
 import org.zoolu.sip.transaction.TransactionClientListener;
 
-
 import android.util.Log;
 
 public class RegisterAgent implements TransactionClientListener {
+	public static final int UNKNWON = 0;
 	public static final int UNREGISTERED = 1;
 	public static final int REGISTERING = 2;
 	public static final int REGISTERED = 3;
 	
-	public int status;
+	
+	public int status=0;
 	public String reason;
 	
 
@@ -49,10 +51,11 @@ public class RegisterAgent implements TransactionClientListener {
         		"sip:"+username+"@"+sipProvider.getViaAddress()); //+":"+sipProvider.getPort()
         		
         this.sipURL = registrar;
+       // Log.d("RegisterAgent","IPv4="+sip_provider.getInterfaceAddress().toString());
 	}
 	
 	public RegisterAgent(String username, String password, String realm){
-				uri="sip:"+username+"@"+realm;
+			uri="sip:"+username+"@"+realm;
 				SipStack.init(null);
 		        SipStack.debug_level =0;
 		        //SipStack.log_path = "~/d/log";
@@ -60,9 +63,9 @@ public class RegisterAgent implements TransactionClientListener {
 		     SipStack.max_retransmission_timeout = SipStack.default_expires;
 		     SipStack.default_transport_protocols = new String[1];
 		     SipStack.default_transport_protocols[0] = "udp";
-		     
+		     SipStack.ua_info="AndroSIP";
 		        sipProvider = new SipProvider(
-		                IpAddress.getLocalHostAddress().toString(),0);  	
+		                IpAddress.getLocalHostAddress().toString(),11111);  	
         this.username=username;
         this.password=password;
         this.realm=realm;
@@ -76,7 +79,7 @@ public class RegisterAgent implements TransactionClientListener {
         
         this.sipURL = new SipURL("sip:"+realm);
 
-    Log.d("ch3ar","IPv4="+IpAddress.getLocalHostAddress().toString());
+    Log.d("RegisterAgent","IPv4="+IpAddress.getLocalHostAddress().toString());
 	}
 	
 	public void register(){
@@ -91,26 +94,28 @@ public class RegisterAgent implements TransactionClientListener {
 				Log.d("RegisterAgent","fromAddress=null");
 			else if (contactAddress==null)
 			Log.d("RegisterAgent","contactAddress=null");
-                           
+			
+           if (status!=REGISTERED){                
               Message rMsg = MessageFactory.createRegisterRequest(
                       sipProvider, 
                       sipURL,
                       toAddress, 
                       fromAddress, 
                       contactAddress);
-             
+              //rMsg.setRoutes(new MultipleHeader());
               rMsg.setExpiresHeader(new ExpiresHeader(SipStack.default_expires));
-            Log.d("ch3ar","rMsg="+rMsg.toString());
+              Log.d("RegisterAgent","rMsg="+rMsg.toString());
               TransactionClient tC;
               tC = new TransactionClient(sipProvider,rMsg,this);
               tC.request();
+              }
 	}
 
 	@Override
 	public void onTransFailureResponse(TransactionClient transClt, Message resp) {
 		// TODO complete other 4xx responses
 		int code = resp.getStatusLine().getCode();
-		Log.d("ch3ar", "AltResp code="+code+" reason="+resp.getStatusLine().getReason());
+		Log.d("RegisterAgent", "AltResp code="+code+" reason="+resp.getStatusLine().getReason());
 		
 		if (code==401){  
 			
@@ -151,7 +156,7 @@ public class RegisterAgent implements TransactionClientListener {
            
           }
 if (code==407){  
-			Log.d("ch3ar","proxy autho");
+			Log.d("RegisterAgent","proxy autho");
 				          }
 if (code==403){
 			Log.d("","");
@@ -182,7 +187,7 @@ if (code==403){
                 contactAddress);
         
         rMsg.setExpiresHeader(new ExpiresHeader(0));
-      //  Log.d("ch3ar","rMsg="+rMsg.toString());
+        Log.d("RegisterAgent","rMsg="+rMsg.toString());
         TransactionClient tC = new TransactionClient(sipProvider,rMsg,this);
         tC.request();
 		}
@@ -193,7 +198,7 @@ if (code==403){
 	@Override
 	public void onTransProvisionalResponse(TransactionClient arg0, Message arg1) {
 		
-		Log.d("ch3ar", "Tryin");
+	//	Log.d("RegisterAgent", "Tryin");
 			status = REGISTERING;
 	}
 
@@ -205,7 +210,7 @@ if (code==403){
 	@Override
 	public void onTransTimeout(TransactionClient arg0) {
 		// TODO Auto-generated method stub
-		Log.d("ch3ar", "RegistrationTimeOut");
+		Log.d("RegisterAgent", "RegistrationTimeOut");
 		status = UNREGISTERED;
 		reason = "TimeOut";
 		

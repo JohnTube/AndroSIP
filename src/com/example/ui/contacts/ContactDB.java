@@ -1,4 +1,4 @@
-package com.example.ui;
+package com.example.ui.contacts;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,10 +13,12 @@ public class ContactDB {
  public static final String COL_NAME = "name";
  public static final String COL_SIP = "sip";
  public static final String COL_IMAGE = "image";
+ public static final String COL_EMAIL = "email";
  private static final int NUM_COL_ID = 0;
  private static final int NUM_COL_NAME = 1;
  private static final int NUM_COL_SIP = 2;
  private static final int NUM_COL_IMAGE=3;
+ private static final int NUM_COL_EMAIL=4;
  
  private static final String TAG = "ContactDB";
  private DatabaseHelper mDbHelper;
@@ -31,7 +33,7 @@ public class ContactDB {
  private static final String DATABASE_CREATE =
   "CREATE TABLE if not exists " + SQLITE_TABLE + " (" +
   COL_ID + " integer PRIMARY KEY autoincrement," + COL_SIP + " TEXT NOT NULL, "
-	+ COL_NAME + " TEXT NOT NULL, "+ COL_IMAGE +");";
+	+ COL_NAME + " TEXT NOT NULL, "+ COL_IMAGE + " , "+COL_EMAIL +");";
  
  private static class DatabaseHelper extends SQLiteOpenHelper {
  
@@ -72,12 +74,13 @@ public class ContactDB {
  }
  
  public long createContact(String name, 
-   String sip,String image){
+   String sip,String image,String email){
  
   ContentValues initialValues = new ContentValues();
   initialValues.put(COL_NAME, name);
   initialValues.put(COL_SIP, sip);
   initialValues.put(COL_IMAGE, image);
+  initialValues.put(COL_EMAIL, email);
  
   return mDb.insert(SQLITE_TABLE, null, initialValues);
  }
@@ -95,12 +98,12 @@ public class ContactDB {
   Log.w(TAG, inputText);
   Cursor mCursor = null;
   if (inputText == null  ||  inputText.length () == 0)  {
-   mCursor = mDb.query(SQLITE_TABLE, new String[] {COL_ID,COL_NAME, COL_SIP,COL_IMAGE}, 
+   mCursor = mDb.query(SQLITE_TABLE, new String[] {COL_ID,COL_NAME, COL_SIP,COL_IMAGE,COL_EMAIL}, 
      null, null, null, null, null);
  
   }
   else {
-   mCursor = mDb.query(true, SQLITE_TABLE, new String[] {COL_ID,COL_NAME, COL_SIP,COL_IMAGE}, 
+   mCursor = mDb.query(true, SQLITE_TABLE, new String[] {COL_ID,COL_NAME, COL_SIP,COL_IMAGE,COL_EMAIL}, 
      COL_NAME + " like '%" + inputText + "%'", null,
      null, null, null, null);
   }
@@ -113,7 +116,7 @@ public class ContactDB {
  
  public Cursor fetchAllContacts() {
  
-  Cursor mCursor = mDb.query(SQLITE_TABLE, new String[] {COL_ID,COL_NAME, COL_SIP,COL_IMAGE}, 
+  Cursor mCursor = mDb.query(SQLITE_TABLE, new String[] {COL_ID,COL_NAME, COL_SIP,COL_IMAGE,COL_EMAIL}, 
     null, null, null, null, null);
  
   if (mCursor != null) {
@@ -132,13 +135,30 @@ public class ContactDB {
 		contact.setName(c.getString(NUM_COL_NAME));
 		contact.setSip(c.getString(NUM_COL_SIP));
 		contact.setImage(c.getString(NUM_COL_IMAGE));
+		contact.setEmail(c.getString(NUM_COL_EMAIL));
 		c.close();
 		return contact;
 	}
  public Contact getContactWithName(String n){
 		
-		Cursor c = mDb.query(SQLITE_TABLE, new String[] {COL_ID,COL_NAME, COL_SIP,COL_IMAGE}, COL_NAME + " LIKE \"" + n +"\"", null, null, null, null);
+		Cursor c = mDb.query(SQLITE_TABLE, new String[] {COL_ID,COL_NAME, COL_SIP,COL_IMAGE,COL_EMAIL}, COL_NAME + " LIKE \"" + n +"\"", null, null, null, null);
 		return cursorToContact(c);
+	}
+ public boolean existeName(String n)
+ {Cursor c = mDb.query(SQLITE_TABLE, new String[] {COL_ID,COL_NAME, COL_SIP,COL_IMAGE,COL_EMAIL}, 
+			COL_NAME + " LIKE \"" + n +"\"", null, null, null, null);
+
+ if (c.getCount()==0) return false;
+ else return true;
+	
+ }
+ public int updateContact(int id, Contact c){
+		
+		ContentValues values = new ContentValues();
+		values.put(COL_NAME, c.getName());
+		values.put(COL_SIP, c.getSip());
+		values.put(COL_EMAIL, c.getEmail());
+		return mDb.update(SQLITE_TABLE, values, COL_ID + " = " +id, null);
 	}
 
  public int removeContactwithName(String n){

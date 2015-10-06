@@ -3,32 +3,46 @@
     package="com.example.test_app"
     android:versionCode="1"
     android:versionName="1.0" >
-	<uses-permission android:name="android.permission.INTERNET" />
+
+	
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+
+    
+    <uses-permission android:name="android.permission.USE_SIP" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.VIBRATE" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.WAKE_LOCK" />
+<uses-permission android:name="android.permission.RECORD_AUDIO" />
+<uses-feature android:name="android.hardware.sip.voip" android:required="true" />
+<uses-feature android:name="android.hardware.wifi" android:required="true" />
+<uses-feature android:name="android.hardware.microphone" android:required="true" />
+    
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="9"
         android:targetSdkVersion="17" />
+
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Sherlock.Light" >
-        
         <activity
             android:name="com.example.ui.MainActivity"
-            android:label="@string/app_name" 
-            android:windowSoftInputMode="adjustPan|stateHidden" 
-            >
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity android:name="com.example.ui.AddconActivity" >
+        <activity android:name="com.example.ui.contacts.AddconActivity" >
         </activity>
-        <activity android:name="com.example.ui.ModifconActivity" >
+        <activity android:name="com.example.ui.contacts.ModifconActivity" >
         </activity>
         <activity
             android:name="com.example.ui.CallFrag"
@@ -51,7 +65,7 @@
             android:label="@string/title_activity_sip_account" >
         </activity>
         <activity
-            android:name="com.example.ui.ShowContact"
+            android:name="com.example.ui.contacts.ShowContact"
             android:label="@string/title_activity_show_contact"
             android:parentActivityName="com.actionbarsherlock.app.SherlockFragmentActivity" >
             <meta-data
@@ -71,18 +85,48 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.actionbarsherlock.app.SherlockFragmentActivity" />
         </activity>
-    <service android:name="com.example.test_app.SipService">    </service>
+
+        <service android:name="com.example.test_app.SipService" >
+        </service>
+
+        <activity
+            android:name="com.example.test_app.Call"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_call"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="com.example.ui.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="com.actionbarsherlock.app.SherlockPreferenceActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.actionbarsherlock.app.SherlockPreferenceActivity" />
+        </activity>
+
+        <service android:name="com.example.test_app.SipCore" >
+        </service>
+
+        <activity
+            android:name="com.example.test_app.InCall"
+            android:label="@string/title_activity_in_call" >
+        </activity>
     </application>
-	
-	
-    <reciever android:name="Receiver"> 
+
+    <reciever android:name="Receiver" >
         <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-            <action android:name="com.example.intent.action.in_call"></action>
-            <!-- <action android:name="com.example.intent.action.register" ></action>
-                <action android:name="com.example.intent.action.startsip"></action> -->
-                
-            </intent-filter>
-        </reciever>
-    
+            <action android:name="android.intent.action.BOOT_COMPLETED" >
+            </action>
+            <action android:name="com.example.intent.action.in_call" >
+            </action>
+            <action android:name="com.example.intent.action.first_login" >
+            </action>
+            <!--
+                 <action android:name="com.example.intent.action.register" ></action>
+                <action android:name="com.example.intent.action.startsip"></action>
+            -->
+
+        </intent-filter>
+    </reciever>
+
 </manifest>

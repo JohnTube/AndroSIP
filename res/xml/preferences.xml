@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceCategory android:title="Compte SIP">
+<EditTextPreference 
+android:key="username"
+android:dialogTitle="Identifiant SIP"
+android:positiveButtonText="OK"
+android:negativeButtonText="Annuler"
+android:title="Nom d'utilisateur SIP"
+android:summary="Veuillez entrez votre identifiant SIP" />
+<EditTextPreference 
+android:key="domain"
+android:dialogTitle="Domaine SIP"
+android:positiveButtonText="OK"
+android:negativeButtonText="Annuler"
+android:title="Domaine SIP"
+android:summary="Veuillez entrez le domain SIP" />
+<EditTextPreference 
+android:key="password"
+android:dialogTitle="Mot de passe"
+android:positiveButtonText="OK"
+android:negativeButtonText="Annuler"
+android:title="Mot de passe"
+android:inputType="textPassword" 
+android:summary="Veuillez entrez votre mot de passe" />
+
+</PreferenceCategory>
+<!--   <PreferenceCategory android:title="Codecs">
+</PreferenceCategory>
+<PreferenceCategory android:title="Themes">
+</PreferenceCategory>-->
+</PreferenceScreen>

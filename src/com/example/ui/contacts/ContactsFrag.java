@@ -1,7 +1,8 @@
-package com.example.ui;
+package com.example.ui.contacts;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.Editable;
@@ -56,13 +57,15 @@ private void displayListView() {
 	  // The desired columns to be bound
 	  String[] columns = new String[] {
 			  ContactDB.COL_NAME,
-			ContactDB.COL_IMAGE
+			ContactDB.COL_IMAGE,
+			ContactDB.COL_SIP
 	  };
 	 
 	  // the XML defined views which the data will be bound to
 	  int[] to = new int[] {
 	    R.id.namecon,
-	  R.id.imagecon
+	  R.id.imagecon,
+	  R.id.sipcon
 	  };
 	 
 	  // create the adapter using the cursor pointing to the desired data 
@@ -80,14 +83,25 @@ ListView listView = (ListView) getActivity().findViewById(R.id.list);
 		     int position, long id) {
 		   // Get the cursor, positioned to the corresponding row in the result set
 		   Cursor cursor = (Cursor) listView.getItemAtPosition(position);
+		   final int idcontact = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
 		  final String namecontact =cursor.getString(cursor.getColumnIndexOrThrow("name"));
+		  final String sipcontact =cursor.getString(cursor.getColumnIndexOrThrow("sip"));
+		  final String emailcontact =cursor.getString(cursor.getColumnIndexOrThrow("email"));
+		  final String imagecontact =cursor.getString(cursor.getColumnIndexOrThrow("image"));
+		  Bundle objetbundle = new Bundle();
+		  objetbundle.putInt("id", idcontact);
+		  objetbundle.putString("NOM",namecontact);
+		  objetbundle.putString("SIP",sipcontact);
+		  objetbundle.putString("EMAIL",emailcontact);
+		  objetbundle.putString("IMAGE",imagecontact);
 		  Intent intent = new Intent(getActivity(),ShowContact.class);
-		  intent.putExtra("NOM",namecontact);
+		  intent.putExtras(objetbundle);
 			getActivity().startActivityForResult(intent,8);
 		   }
 		  });
 	 
 	  EditText myFilter = (EditText) getActivity().findViewById(R.id.myFilter);
+	  myFilter.setTextColor(Color.parseColor("#FFFFFF"));
 	  myFilter.addTextChangedListener(new TextWatcher() {
 	 
 	   public void afterTextChanged(Editable s) {

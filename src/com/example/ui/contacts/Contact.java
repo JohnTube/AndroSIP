@@ -1,4 +1,4 @@
-package com.example.ui;
+package com.example.ui.contacts;
 
 
 public class Contact{
@@ -6,12 +6,14 @@ public class Contact{
 	private String sip;
 	private String name;
 	private String image;
+	private String email;
 	
 	public Contact(){}
-	public Contact(String n, String name,String im) {
+	public Contact(String name, String n,String im,String e) {
 		this.sip = n;
 		this.name = name;
 		this.image=im;
+		this.email=e;
 		}
 	public int getId() {
 		return id;
@@ -27,6 +29,13 @@ public class Contact{
  
 	public void setSip(String s) {
 		this.sip = s;
+	}
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String e) {
+		this.email = e;
 	}
 	
 	public String getName() {
@@ -46,7 +55,7 @@ public class Contact{
 	}
 	
 	public String toString(){
-		return "ID : "+id+"\nName : "+name+"\nSip : "+sip+"\nImage : "+image;
+		return "ID : "+id+"\nName : "+name+"\nSip : "+sip+"\nImage : "+image+"\nEmail : "+email;
 	}
 	
 		}

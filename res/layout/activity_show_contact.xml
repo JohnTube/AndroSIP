@@ -10,27 +10,42 @@
     android:background="@drawable/dark"
     android:orientation="vertical"
     >
+ 
+     <TextView
+        android:id="@+id/affichage_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:text="text"
+        android:textColor="#FFFFFF"
+android:textSize="20sp"/>
+   
+     <ImageView
+            android:id="@+id/image_contact"
+            android:layout_width="150dip"
+            android:layout_height="150dip"
+            android:layout_gravity="center"   
+            android:background="#FFFFFF"/>
+         
+           
     
     <Button
         android:id="@+id/modif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200sp"
+        android:layout_height="50sp"
         android:text=" Modifier Contact "
-        android:background="@drawable/bb"
         android:layout_gravity="center"
+            android:textColor="#FFFFFF"
         android:padding="12dip" 
         />
     
     <Button
         android:id="@+id/supp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200sp"
+        android:layout_height="50sp"
         android:text="Supprimer Contact "
-        android:background="@drawable/bb"
         android:layout_gravity="center"
+        android:textColor="#FFFFFF"
         android:padding="12dip" 
         />
-    
-    
 
 </LinearLayout>

@@ -1,12 +1,17 @@
 package com.example.ui;
 
 
+import org.zoolu.sip.provider.SipStack;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,6 +20,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.example.test_app.R;
@@ -28,7 +34,7 @@ import com.example.test_app.RegisterAgent;
 public class LoginActivity extends SherlockFragmentActivity {
 	
 	// Account PREF_FILE_NAM and Account PREFS KEYS
-	public static final String ACCOUNT_PREFS_NAME = "AccountPrefs";
+	//public static final String ACCOUNT_PREFS_NAME = "AccountPrefs";
 	public static final String PREF_USERNAME = "username";
 	public static final String PREF_PASSWORD = "password";
 	public static final String PREF_DOMAIN = "domain";
@@ -102,7 +108,11 @@ public class LoginActivity extends SherlockFragmentActivity {
 	@Override
 	public void onStart(){
 		super.onStart();
-		getSupportActionBar().setTitle("Add account");
+		ActionBar aB = getSupportActionBar(); //com.actionbarsherlock.app.ActionBar
+		aB.setTitle("Ajouter compte SIP"); // to change the text in the actionBar
+		aB.setIcon(R.drawable.compte); // to change the icon in the actionBar
+		//aB.setHomeButtonEnabled(true);//to enable left arrow return (back) button
+
 	}
 
 	/**
@@ -152,6 +162,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 			// There was an error; don't attempt login and focus the first
 			// form field with an error.
 			focusView.requestFocus();
+			Log.d("LoginActivity","cancel");
 		} else {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
@@ -218,21 +229,27 @@ public class LoginActivity extends SherlockFragmentActivity {
 			//rA = new RegisterAgent(mUsername,mPassword,mDomain);
 			//rA.register();
 			
-			Receiver.sipCore.init(mUsername, mPassword, mDomain);
-			Receiver.engine(getParent()).register();
-			if (Receiver.sipCore.isRegistered())
-			{	Log.d("LoginActivity","saving prefs");
-		        getSharedPreferences(ACCOUNT_PREFS_NAME,MODE_PRIVATE)
-	        .edit()
-	        .putString(PREF_USERNAME, mUsername)
-	        .putString(PREF_DOMAIN, mDomain)
-	        .putBoolean(PREF_REGISTERED_ONCE, true)
-	        .putString(PREF_PASSWORD, mPassword)
-	        .commit();
-
-			return true;}
-			else return false;
+			
+				Log.d("LoginActivity","saving prefs");
+				SharedPreferences prefs=PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+		        Editor editor= prefs.edit();
+		        editor.putString(PREF_USERNAME, mUsername);
+		        editor.putString(PREF_DOMAIN, mDomain);
+		        editor.putBoolean(PREF_REGISTERED_ONCE, true);
+		        editor.putString(PREF_PASSWORD, mPassword);
+		        editor.commit();
+		        Receiver.sipCore.init(LoginActivity.this);
+		        Receiver.register();
+		        try
+		        {
+		            Thread.sleep(SipStack.default_expires);  
+		        }catch(Exception e){
+		        	Log.d("LoginActivity",e.getMessage());
+		        }
+			return Receiver.sipCore.isRegistered();
 		}
+
+
 
 		@Override
 		protected void onPostExecute(final Boolean success) {
@@ -240,6 +257,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 			showProgress(false);
 			
 			if (success) {
+				Receiver.sipCore.listen();
 				finish();
 			} else {
 				mLoginStatusMessageView.setError("Account not saved ");

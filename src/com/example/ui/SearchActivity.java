@@ -18,6 +18,8 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.test_app.R;
+import com.example.ui.contacts.ContactDB;
+import com.example.ui.contacts.ShowContact;
 
 // this will replace the contactsFrag without the addContact button and the search button and EditText (filter) will be in the actionBar itself 
 public class SearchActivity extends SherlockFragmentActivity {

@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,11 +6,78 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ModifconActivity" >
+    tools:context=".ModifconActivity"
+      android:background="@drawable/dark"
+          android:orientation="vertical" >
 
-    <TextView
+<TextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:text="Nom d'utilisateur : " 
+    android:textStyle="bold" 
+    android:textColor="#FFFFFF" 
+    android:gravity="center" 
+    android:textSize="18sp"/>
+
+<EditText android:id="@+id/namemodif"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:hint="NOM d'utilisateur :" 
+    android:inputType="text"
+    />
+
+<TextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:text="SIP URI : " 
+    android:textStyle="bold" android:textColor="#FFFFFF" 
+    android:gravity="center" android:textSize="18sp"/>
+
+<EditText android:id="@+id/sipmodif" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:hint="SIP URI" 
+    android:inputType="text"/>
+
+<TextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:text="E-mail : " 
+    android:textStyle="bold" android:textColor="#FFFFFF" 
+    android:gravity="center" android:textSize="18sp"/>
+
+<EditText android:id="@+id/mailmodif" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:hint="E-mail" 
+    android:inputType="textEmailAddress"/>
+   <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
+<Button android:id="@+id/modifph1"
+  android:layout_width="150sp"
+        android:layout_height="50sp"
+    android:layout_gravity="left"
+    android:text="Choisir Photo"
+     android:textColor="#FFFFFF"
+   />
 
-</RelativeLayout>
+<Button android:id="@+id/modifph2"
+  android:layout_width="150sp"
+        android:layout_height="50sp"
+    android:layout_gravity="right"
+    android:text="Prendre Photo"
+     android:textColor="#FFFFFF"
+   />
+    </LinearLayout>
+<Button android:id="@+id/modifbtn"
+  android:layout_width="150sp"
+        android:layout_height="50sp"
+    android:layout_gravity="center"
+    android:text="Modifier"
+     android:textColor="#FFFFFF"
+   />
+
+</LinearLayout>

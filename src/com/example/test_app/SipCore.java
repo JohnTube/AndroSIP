@@ -6,13 +6,18 @@ import org.zoolu.sip.address.SipURL;
 import org.zoolu.sip.provider.SipProvider;
 import org.zoolu.sip.provider.SipStack;
 
-import com.example.ui.LoginActivity;
-
+import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class SipCore {
+import com.example.ui.LoginActivity;
+
+public class SipCore  extends Service {
 	private RegisterAgent rA;
 	//private SipStack sipStack;
 	private SipProvider sipProvider;
@@ -24,58 +29,71 @@ public class SipCore {
 	private String from_url = null;
 	
 	public SipCore(){
+		Log.d("SipCore","SipCore()");
 		SipStack.init(null);
         SipStack.debug_level =0;
-        //SipStack.log_path = "~/d/log";
-        //int expire_time = 1500;
         SipStack.max_retransmission_timeout = SipStack.default_expires;
         SipStack.default_transport_protocols = new String[1];
         SipStack.default_transport_protocols[0] = "udp";
+        SipStack.ua_info="AndroSIP";
 	}
 	
 	public void listen(){
-		ua = new UA();
-		ua.UAS(sipProvider);
+		if (ua!=null && sipProvider!=null)
+		ua.UAS();
 	}
 	
+	public void acceptCall(){
+		Log.d("SipCore","accepting call");
+		ua.accept();
+	}
+	
+	public void rejectCall(){
+		ua.reject();
+	}
+	
+	public void call(NameAddress callee){
+		ua.UAC(callee);
+	}
+	
+	
 	public SipCore(Context context){
+		Log.d("SipCore","SipCore(context)");
 		SipStack.init(null);
         SipStack.debug_level =0;
-        //SipStack.log_path = "~/d/log";
-        //int expire_time = 1500;
         SipStack.max_retransmission_timeout = SipStack.default_expires;
         SipStack.default_transport_protocols = new String[1];
         SipStack.default_transport_protocols[0] = "udp";
-		 sipProvider = new SipProvider(
-	                IpAddress.getLocalHostAddress().toString(),0);
-	        if (sipProvider==null) Log.d("SipCore","sipProvider=null");
-	        //this.ua=new UA();
-	        getCredentials(context);
-	        String uri="sip:"+username+"@"+realm;
-	        this.rA= new RegisterAgent(sipProvider, new SipURL("sip:"+realm), new NameAddress(uri), 
-	        		new NameAddress(uri),username,realm,passwd);
+        SipStack.ua_info="AndroSIP";
 	}
 	
 	public void init(Context context){
+		Log.d("SipCore","init sipCore(context)");
 		 sipProvider = new SipProvider(
 	                IpAddress.getLocalHostAddress().toString(),0);
 	        if (sipProvider==null) Log.d("SipCore","sipProvider=null");
 	        //this.ua=new UA();
 	        getCredentials(context);
 	        String uri="sip:"+username+"@"+realm;
+	        //this.rA=new RegisterAgent(username,passwd,realm);
 	        this.rA= new RegisterAgent(sipProvider, new SipURL("sip:"+realm), new NameAddress(uri), 
 	        		new NameAddress(uri),username,realm,passwd);
+	       this.ua=new UA(sipProvider,username,passwd,realm);
 	}
 	
 	public void init(String user,String password,String domain){
+		Log.d("SipCore","init(u,p,d)");
 		 sipProvider = new SipProvider(
 	                IpAddress.getLocalHostAddress().toString(),0);
 	        if (sipProvider==null) Log.d("SipCore","sipProvider=null");
 	        //this.ua=new UA();
 	        //getCredentials(context);
+	        setCredentials(user,password,domain);
 	        String uri="sip:"+user+"@"+domain;
 	        this.rA= new RegisterAgent(sipProvider, new SipURL("sip:"+realm), new NameAddress(uri), 
 	        		new NameAddress(uri),user,domain,password);
+	        this.ua=new UA(sipProvider,username,realm,passwd);
+	       // this.rA= new RegisterAgent(user,domain,password);
 	}
 	
 	public void setCredentials(String user,String password,String domain){
@@ -86,18 +104,14 @@ public class SipCore {
 	}
 	
 	private void getCredentials(Context context){
-		/*SharedPreferences pref = context.getSharedPreferences(LoginActivity.ACCOUNT_PREFS_NAME,android.content.Context.MODE_PRIVATE);
-		if (pref.getBoolean(LoginActivity.PREF_REGISTERED_ONCE,false)||
-				context.getClass().getSimpleName()==LoginActivity.class.getSimpleName())
-		{
+		Log.d("SipCore","getting credentials");
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
 			this.username=pref.getString(LoginActivity.PREF_USERNAME, null);
+			Log.d("SipCore","username="+username);
 			this.realm=pref.getString(LoginActivity.PREF_DOMAIN, null);
+			Log.d("SipCore","realm="+realm);
 			this.passwd=pref.getString(LoginActivity.PREF_PASSWORD, null);
-		}*/
-		username="test";
-		realm="192.168.1.4";
-		passwd="test";
-		
+			Log.d("SipCore","pass="+passwd);
 	}
 	
     private void init_addresses() {
@@ -137,4 +151,21 @@ public class SipCore {
 
 	public boolean isRegistered()
 	{return rA.status==RegisterAgent.REGISTERED;}
+	
+	@Override
+	public IBinder onBind(Intent arg0) {
+		// TODO Auto-generated method stub
+		Log.d("SipService","onBind");
+		return null;
+	}
+	@Override
+	public void onCreate()
+	{	super.onCreate();
+		Log.d("SipService","onCreate()");
+	}
+	@Override 
+	public void onDestroy(){
+		super.onDestroy();
+		Log.d("SipService","onDestroy()");
+	}
 }

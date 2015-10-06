@@ -9,11 +9,10 @@
     tools:context=".ShowContact" 
     android:background="@drawable/dark"
     android:orientation="vertical">
-    
 <TextView 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" 
-    android:text="NAME : " 
+    android:text="Nom d'utilisateur : " 
     android:textStyle="bold" 
     android:textColor="#FFFFFF" 
     android:gravity="center" 
@@ -22,66 +21,64 @@
 <EditText android:id="@+id/namecontact"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
-    android:hint="NAME" 
-    android:inputType="text"/>
+    android:hint="NOM d'utilisateur :" 
+    android:inputType="text"
+    />
 
 <TextView 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" 
-    android:text="SIP : " 
+    android:text="SIP URI : " 
     android:textStyle="bold" android:textColor="#FFFFFF" 
     android:gravity="center" android:textSize="18sp"/>
 
 <EditText android:id="@+id/sipcontact" 
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
-    android:hint="SIP" 
+    android:hint="SIP URI" 
     android:inputType="text"/>
 
-<Button android:id="@+id/chsip" 
-    android:layout_width="wrap_content" 
+<TextView 
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content" 
-    
-    android:layout_gravity="center"  
-    android:text="Choose SIP Provider"
-    android:padding="16dip" 
-    android:textColor="#FFFFFF"/>
+    android:text="E-mail : " 
+    android:textStyle="bold" android:textColor="#FFFFFF" 
+    android:gravity="center" android:textSize="18sp"/>
+
+<EditText android:id="@+id/mailcontact" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:hint="E-mail" 
+    android:inputType="textEmailAddress"/>
 
 
    <LinearLayout
         android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">"
-<Button android:id="@+id/imagebrowse" 
-    android:layout_width="wrap_content" 
-    android:layout_height="wrap_content" 
+    android:orientation="horizontal"
+    android:gravity="center">
+    
+<Button android:id="@+id/imagebrowse"
+  android:layout_width="150sp"
+        android:layout_height="50sp"
+    android:layout_gravity="left"
+    android:text="Choisir Photo"
+     android:textColor="#FFFFFF"
+   />
 
-    android:layout_gravity="center" 
-    android:background="@drawable/bb" 
-    android:text="Choose Image"
-    android:padding="16dip" 
-    android:textColor="#FFFFFF"/>
-<Button android:id="@+id/imagecapture" 
-    android:layout_width="wrap_content" 
-    android:layout_height="wrap_content" 
- 
-    android:layout_gravity="center" 
-    android:background="@drawable/bb" 
-    android:text="Take Photo"
-    android:padding="16dip" 
+<Button android:id="@+id/imagecapture"  
+ android:layout_width="150sp"
+        android:layout_height="50sp"
+    android:layout_gravity="left"
+    android:text="Prendre Photo"
     android:textColor="#FFFFFF"/>
 </LinearLayout>
 
 <Button android:id="@+id/add" 
-    android:layout_width="wrap_content" 
-    android:layout_height="wrap_content" 
-    
+    android:layout_width="150sp"
+        android:layout_height="50sp"
     android:layout_gravity="center" 
-    android:background="@drawable/bb" 
-    android:text="ADD"
-    android:padding="16dip" 
+    android:text="Ajouter"
+   
     android:textColor="#FFFFFF"/>
-
-
-    
 </LinearLayout>
